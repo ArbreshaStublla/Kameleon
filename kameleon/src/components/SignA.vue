@@ -1,13 +1,10 @@
 <template>
-  <router-view/>
+  <h1>A</h1>
 </template>
 
 <script>
-
 export default {
-components:{
-  
-}
+
 }
 </script>
 
