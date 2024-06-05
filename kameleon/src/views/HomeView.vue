@@ -1,20 +1,26 @@
 <template>
-  <h1>Hello</h1>
+   
+      <MenuUp/>
+      <router-view></router-view>
+    
 </template>
 
 <script>
-export default {
- 
-  mounted() {
-        let user = localStorage.getItem('user-info');
-        if(!user){
-            this.$router.push({name: 'SignUp'})
-        }
-      }
+import MenuUp from "../components/MenuUp.vue"
 
+export default {
+  components: {
+    MenuUp
+  },
+  mounted() {
+    let user = localStorage.getItem('user-info');
+    if(!user) {
+      this.$router.push({ name: 'SignUp' })
+    }
+  }
 }
 </script>
 
-<style>
+<style scoped>
 
 </style>
