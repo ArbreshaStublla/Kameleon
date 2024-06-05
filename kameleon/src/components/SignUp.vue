@@ -3,36 +3,36 @@
     <div class="signup-box">
       <img src="../assets/kameleon.png" class="signup-logo" alt="Logo">
       <form @submit.prevent="handleSignUp">
-        <h2>Sign Up</h2>
+        <h2>Regjistrohu</h2>
 
         <div class="input-box">
           <span class="icon">
             <ion-icon name="person"></ion-icon>
           </span>
-          <input type="text" v-model="name" required>
-          <label>Name</label>
+          <input type="text" v-model="name" required @focus="onFocus($event, 'name')" @blur="onBlur($event, 'name')">
+          <label :class="{ 'active': name !== '' }">Emri</label>
         </div>
 
         <div class="input-box">
           <span class="icon">
             <ion-icon name="mail"></ion-icon>
           </span>
-          <input type="email" v-model="email" required>
-          <label>Email</label>
+          <input type="email" v-model="email" required @focus="onFocus($event, 'email')" @blur="onBlur($event, 'email')">
+          <label :class="{ 'active': email !== '' }">Email</label>
         </div>
 
         <div class="input-box">
           <span class="icon">
             <ion-icon name="lock-closed"></ion-icon>
           </span>
-          <input type="password" v-model="password" required>
-          <label>Password</label>
+          <input type="password" v-model="password" required @focus="onFocus($event, 'password')" @blur="onBlur($event, 'password')">
+          <label :class="{ 'active': password !== '' }">Fjalëkalimi</label>
         </div>
 
-        <button v-on:click="signUp">Sign Up</button>
+        <button v-on:click="signUp">Regjistrohu</button>
         <p class="loginn">
-      <router-link to="/login"><span>Login</span></router-link>
-    </p>
+          <router-link to="/login"><span>Kyçu</span></router-link>
+        </p>
       </form>
     </div>
   </div>
@@ -65,6 +65,16 @@ export default {
       } catch (error) {
         console.error('Error during sign up:', error);
       }
+    },
+    onFocus(event, field) {
+      if (this[field] === '') {
+        event.target.nextElementSibling.classList.add('active');
+      }
+    },
+    onBlur(event, field) {
+      if (this[field] === '') {
+        event.target.nextElementSibling.classList.remove('active');
+      }
     }
   },
   mounted() {
@@ -75,6 +85,8 @@ export default {
   }
 };
 </script>
+
+
 <style scoped>
 .wrapper {
   display:flex;
@@ -132,8 +144,9 @@ h2 {
   pointer-events:none;
   transition:.5s;
 }
-.input-box input:focus  ~ label,
-.input-box input:valid  ~ label {
+.input-box input:focus ~ label,
+.input-box input:valid ~ label,
+.input-box label.active {
   top:-5px;
 }
 .input-box input {
@@ -166,13 +179,12 @@ button {
 }
 .loginn{
   font-size: 22px;
-
 }
 .loginn span {
   text-decoration: none !important;
-display: flex;
-justify-content: center;
-align-items: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 @media (max-width:500px) {
   .signup-box {
@@ -189,5 +201,4 @@ align-items: center;
     width: 80px; 
   }
 }
-
 </style>

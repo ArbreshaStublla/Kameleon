@@ -3,34 +3,34 @@
     <div class="login-box">
       <img src="@/assets/kameleon.png" class="login-logo" alt="Logo">
       <form @submit.prevent="handleSubmit">
-        <h2>Login</h2>
+        <h2>Kyçu</h2>
 
         <div class="input-box">
           <span class="icon">
             <ion-icon name="mail"></ion-icon>
           </span>
-          <input type="email" v-model="email" required>
-          <label>Email</label>
+          <input type="email" v-model="email" required @focus="handleFocus" @blur="handleBlur">
+          <label :class="{ active: email !== '' }">Email</label>
         </div>
 
         <div class="input-box">
           <span class="icon">
             <ion-icon name="lock-closed"></ion-icon>
           </span>
-          <input type="password" v-model="password" required>
-          <label>Password</label>
+          <input type="password" v-model="password" required @focus="handleFocus" @blur="handleBlur">
+          <label :class="{ active: password !== '' }">Fjalëkalimi</label>
         </div>
 
         <div class="remember-forgot">
-          <label><input type="checkbox" v-model="rememberMe"> Remember me</label>
-          <a href="#">Forgot Password?</a>
+          <label><input type="checkbox" v-model="rememberMe">Mbaj mend</label>
+          <a href="#">Ke harruar fjalëkalimin?</a>
         </div>
 
-        <button v-on:click="login">Log In</button>
+        <button v-on:click="login">Kyçu</button>
 
         <div class="register-link">
-          <p>Don't have an account? 
-            <router-link to="/sign-up">Sign Up</router-link>
+          <p>Nuk keni një llogari? 
+            <router-link to="/sign-up">Regjistrohu</router-link>
           </p>
         </div>
       </form>
@@ -41,33 +41,41 @@
 <script>
 import axios from 'axios';
 export default {
-data() {
-  return {
-    email: '',
-    password: ''
-  };
-},
-methods: {
-  async login() {
-    try {
-      let result = await axios.get(`http://localhost:3000/user?email=${this.email}&password=${this.password}`);
-      if (result.status === 200 && result.data.length > 0) {
-        localStorage.setItem('user-info', JSON.stringify(result.data[0]));
-        this.$router.push({ name: 'home' });
-      } else {
-        console.warn('Login failed: Invalid email or password');
+  data() {
+    return {
+      email: '',
+      password: ''
+    };
+  },
+  methods: {
+    async login() {
+      try {
+        let result = await axios.get(`http://localhost:3000/user?email=${this.email}&password=${this.password}`);
+        if (result.status === 200 && result.data.length > 0) {
+          localStorage.setItem('user-info', JSON.stringify(result.data[0]));
+          this.$router.push({ name: 'home' });
+        } else {
+          console.warn('Login failed: Invalid email or password');
+        }
+      } catch (error) {
+        console.error('Error during login', error);
       }
-    } catch (error) {
-      console.error('Error during login', error);
+    },
+    handleFocus(event) {
+      event.target.parentNode.querySelector('label').classList.add('active');
+    },
+    handleBlur(event) {
+      if (event.target.value === '') {
+        event.target.parentNode.querySelector('label').classList.remove('active');
+      }
+    }
+  },
+  mounted() {
+    let user = localStorage.getItem('user-info');
+    if (user) { 
+      this.$router.push({ name: 'home' });
     }
   }
-},
-mounted() {
-  let user = localStorage.getItem('user-info');
-  if (user) { 
-    this.$router.push({ name: 'home' });
-  }
-}
 };
 </script>
 
@@ -127,10 +135,6 @@ h2 {
   color:#fff;
   pointer-events:none;
   transition:.5s;
-}
-.input-box input:focus  ~ label,
-.input-box input:valid  ~ label {
-  top:-5px;
 }
 .input-box input {
   width:100%;
@@ -205,5 +209,8 @@ button {
     top: -30px; 
     width: 80px; 
   }
+}
+.input-box label.active {
+  top: -5px;
 }
 </style>
