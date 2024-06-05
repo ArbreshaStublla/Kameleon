@@ -1,58 +1,54 @@
 <template>
-    <h1>Sign Up</h1>
-    <div class="register">
-        <input type="text" v-model="name" placeholder="Enter Name">
-    <input type="email" v-model="email" placeholder="Enter Email">
-    <input type="password" v-model="password" placeholder="Enter Password">
+  <h1>Sign Up</h1>
+  <div class="register">
+    <input type="text" v-model="name" placeholder="Enter Name" />
+    <input type="email" v-model="email" placeholder="Enter Email" />
+    <input type="password" v-model="password" placeholder="Enter Password" />
     <button v-on:click="signUp">Sign Up</button>
     <p>
-        <router-link to="/login">Login</router-link>
+      <router-link to="/login">Login</router-link>
     </p>
-    </div>
-  
-  </template>
-  
-  <script>
-  import axios from 'axios'
-  export default {
-      name: "SignUp",
-      data() {
-          return {
-              name: '',
-              email: '',
-              password: ''
-          }
-      },
-      methods: {
-          async signUp() {
-              try {
-                  let result = await axios.post("http://localhost:3000/user", {
-                      email: this.email,
-                      password: this.password,
-                      name: this.name
-                  });
-                  console.warn(result);
-                  if (result.status === 201) {
-                      localStorage.setItem("user-info", JSON.stringify(result.data));
-                      this.$router.push({ name: 'home' });
-                  }
-              } catch (error) {
-                  console.error('Error during sign up:', error);
-              }
-          }
-      },
-      mounted() {
-        let user = localStorage.getItem('user-info');
-        if(user){
-            this.$router.push({name: 'home'})
-        }
-      }
-  }
-  </script>
-  
-  <style>
-  /* Add any relevant styles here */
-  </style>
-  
+  </div>
+</template>
 
-  <!-- npx json-server --watch db.json --port 3000 -->
+<script>
+import axios from 'axios';
+
+export default {
+  name: "SignUp",
+  data() {
+    return {
+      name: '',
+      email: '',
+      password: ''
+    };
+  },
+  methods: {
+    async signUp() {
+      try {
+        let result = await axios.post("http://localhost:3000/user", {
+          email: this.email,
+          password: this.password,
+          name: this.name
+        });
+        if (result.status === 201) {
+          localStorage.setItem("user-info", JSON.stringify(result.data));
+          this.$router.push({ name: 'home' });
+        }
+      } catch (error) {
+        console.error('Error during sign up:', error);
+      }
+    }
+  },
+  mounted() {
+    let user = localStorage.getItem('user-info');
+    if (user) {
+      this.$router.push({ name: 'home' });
+    }
+  }
+};
+</script>
+
+<style>
+/* Add any relevant styles here */
+</style>

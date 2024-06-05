@@ -1,51 +1,48 @@
 <template>
-    <h1>Login</h1>
-    <div class="login">
-      <input type="email" v-model="email" placeholder="Enter Email" />
-      <input type="password" v-model="password" placeholder="Enter Password" />
-      <button v-on:click="login">Log In</button>
-      <p>
-        <router-link to="/sign-up">Sign Up</router-link>
-      </p>
-    </div>
-  </template>
-  
-  <script>
-  import axios from 'axios';
-  export default {
-    data() {
-      return {
-        email: '',
-        password: ''
-      };
-    },
-    methods: {
-      async login() {
-        try {
-          let result = await axios.get(
-            `http://localhost:3000/user?email=${this.email}&password=${this.password}`
-          );
-          if (result.status === 200 && result.data.length > 0) {
-            localStorage.setItem('user-info', JSON.stringify(result.data[0]));
-            this.$router.push({ name: 'home' });
-          } else {
-            console.warn('Login failed', result);
-          }
-        } catch (error) {
-          console.error('Error during login', error);
+  <h1>Login</h1>
+  <div class="login">
+    <input type="email" v-model="email" placeholder="Enter Email" />
+    <input type="password" v-model="password" placeholder="Enter Password" />
+    <button v-on:click="login">Log In</button>
+    <p>
+      <router-link to="/sign-up">Sign Up</router-link>
+    </p>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+export default {
+  data() {
+    return {
+      email: '',
+      password: ''
+    };
+  },
+  methods: {
+    async login() {
+      try {
+        let result = await axios.get(`http://localhost:3000/user?email=${this.email}&password=${this.password}`);
+        if (result.status === 200 && result.data.length > 0) {
+          localStorage.setItem('user-info', JSON.stringify(result.data[0]));
+          this.$router.push({ name: 'home' });
+        } else {
+          console.warn('Login failed: Invalid email or password');
         }
-      }
-    },
-    mounted() {
-      let user = localStorage.getItem('user-info');
-      if (user) {
-        this.$router.push({ name: 'home' });
+      } catch (error) {
+        console.error('Error during login', error);
       }
     }
-  };
-  </script>
-  
-  <style>
-  /* Add your styles here */
-  </style>
-  
+  },
+  mounted() {
+    let user = localStorage.getItem('user-info');
+    if (user) {
+      this.$router.push({ name: 'home' });
+    }
+  }
+};
+</script>
+
+<style>
+/* Add your styles here */
+</style>
