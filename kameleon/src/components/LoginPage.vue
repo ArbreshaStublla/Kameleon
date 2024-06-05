@@ -128,10 +128,9 @@ h2 {
   pointer-events:none;
   transition:.5s;
 }
-.input-box input:focus ~ label,
-.input-box input:valid ~ label,
-.input-box input:not(:placeholder-shown) ~ label {
-  top: -5px;
+.input-box input:focus  ~ label,
+.input-box input:valid  ~ label {
+  top:-5px;
 }
 .input-box input {
   width:100%;
