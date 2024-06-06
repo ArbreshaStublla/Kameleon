@@ -20,7 +20,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    padding-top: 10vh; 
+    padding-top: 14vh; 
   }
   
   .centered-container h1, .centered-container p {

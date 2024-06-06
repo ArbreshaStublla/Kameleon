@@ -48,21 +48,9 @@ export default {
 
       ],
       showLogo: false,
-      showHamburgerMenu: true,
-  
-      
-   
-  }
-
-   
+      showHamburgerMenu: true,   
+  }   
 }
-     
-   
-  
-    
-  
-
-  
 }
 </script>
 
