@@ -116,7 +116,7 @@ export default {
       this.currentPage = page;
     },
     handleLearnMoreClick() {
-      this.$router.push({ path: '/paginationcomponent' });
+      this.$router.push({ path: '/teampage' });
     }
   
   }
