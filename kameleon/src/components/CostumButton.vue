@@ -1,6 +1,6 @@
 
 <template>
-    <button class="button" @click="handleClick">
+    <button class="button" @click="$emit('click')">
       <span><slot></slot></span>
     </button>
   </template>
@@ -21,12 +21,12 @@
     display: inline-block;
     border-radius: 4px;
     border: none;
-    background: #1875FF;
+    background: #51AF98 ;
     color: white;
     font-family: inherit;
     text-align: center;
     font-size: 13px;
-    width: 10em;
+    width: 8em;
     padding: 10px;
     transition: all 0.4s;
     cursor: pointer;

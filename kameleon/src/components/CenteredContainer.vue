@@ -26,20 +26,18 @@ export default {
       this.showLoader = false;
     }, 800); 
   }
-};
-</script>
-
-<style scoped>
-.centered-container {
-
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 10vh; 
-}
-
-.centered-container h1,
-.centered-container p {
-  margin: 0;
-}
-</style>
+  </script>
+  
+  <style scoped>
+  .centered-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 14vh; 
+  }
+  
+  .centered-container h1, .centered-container p {
+    margin: 0;
+  }
+  </style>
+  
