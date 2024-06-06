@@ -1,6 +1,6 @@
 <template>
-  <v-card style="position:fixed;  width:100%;" class="cardstyle">
-    <v-layout >
+   <v-card style="position:fixed; z-index:9999; width:100%;" class="cardstyle">
+    <v-layout style="z-index:99999 !Important;" >
       <v-navigation-drawer mobile-breakpoint="960" expand-on-hover rail class="no-padding" @mouseenter="showLogo = true" @mouseleave="showLogo = !showHamburgerMenu">
         <v-list>
           <v-list-item>
