@@ -1,4 +1,5 @@
 <template>
+  <div class="team">
     <CenteredContainer>
       <div class="content">
         <h1 class="heading">Ekipi</h1>
@@ -21,75 +22,110 @@
       {{ card.profileButtonText }}
     </CostumButton>
   </div>
-            </div>
+</div>
           </div>
         </a>
         <PaginationComponent :totalPages="totalPages" :currentPage="currentPage" @pageChange="handlePageChange" />
       </div>
     </CenteredContainer>
   </div>
- 
-  </template>
-  <script>
-import CustomButton from '@/components/CostumButton.vue';
-  import CenteredContainer from '@/components/CenteredContainer.vue';
-  export default {
-    components: {
-      CenteredContainer,
-      CustomButton
+</template>
+
+<script>
+import CostumButton from '@/components/CostumButton.vue';
+import CenteredContainer from '@/components/CenteredContainer.vue';
+import PaginationComponent from '@/components/PaginationComponent.vue';
+export default {
+  components: {
+    CenteredContainer,
+    CostumButton,
+    PaginationComponent
+  },
+  data() {
+    return {
+      cards: [
+        {
+          image: require('../assets/person1.jpg'),
+          name: 'Leart Bytyqi',
+          job: 'Marketing Manager',
+          backText: 'Zhvillon strategjitë dhe fushatat e marketingut për të promovuar produkte ose shërbime.',
+          contactButtonText: 'Contact',
+          profileButtonText: 'Profile'
+        },
+        {
+          image: require('../assets/person2.jpg'),
+          name: 'Aleksandra Sopi',
+          job: 'Digital Marketing Specialist',
+          backText: 'Zhvillon dhe implementon strategjitë e marketingut në rrjetet sociale, përfshirë platformat si Facebook, Instagram, Twitter, dhe LinkedIn.',
+          contactButtonText: 'Contact',
+          profileButtonText: 'Profile'
+        },
+        {
+          image: require('../assets/person3.jpg'),
+          name: 'Helena Gashi',
+          job: 'Social Media Manager',
+          backText: 'Zhvillon strategji të mediave sociale për të rritur ndjekësit dhe pjesëmarrjen e audiencës në rrjetet sociale.',
+          contactButtonText: 'Contact',
+          profileButtonText: 'Profile'
+        },
+        {
+          image: require('../assets/person4.jpg'),
+          name: 'Eduart Spahiu',
+          job: 'Brand Manager',
+          backText: 'Zhvillon dhe implementon strategji për të rritur dhe për të promovuar imazhin e markës në treg.',
+          contactButtonText: 'Contact',
+          profileButtonText: 'Profile'
+        },
+        {
+          image: require('../assets/person5.jpg'),
+          name: 'Diana Jaha',
+          job: 'Market Research Analyst',
+          backText: 'Monitoron veprimtarinë e konkurrencës dhe bën krahasime për të vlerësuar pozicionimin e markës në treg.',
+          contactButtonText: 'Contact',
+          profileButtonText: 'Profile'
+        },
+        {
+          image: require('../assets/person6.jpg'),
+          name: 'Albatros Kryeziu',
+          job: 'SEO Specialist',
+          backText: 'Krijon dhe monitoron lidhjet e brendshme dhe të jashtme për të rritur autoritetin e faqes në internet.',
+          contactButtonText: 'Contact',
+          profileButtonText: 'Profile'
+        }
+      ],
+      currentPage: 1,
+      assetsPerPage: 3 
+    };
+  },
+  computed: {
+    totalAssets() {
+      return this.cards.length;
     },
-    data() {
-      return {
-        cards: [
-          {
-            image: '//source.unsplash.com/300x401',
-            frontText: 'Lorem ipsum dolor sit amet consectetur adipisi.',
-            backText1: 'Consectetur adipisicing elit. Possimus, praesentium?',
-            backText2: 'Provident consectetur natus voluptatem quis tenetur sed beatae eius sint.'
-          },
-          {
-            image: '//source.unsplash.com/300x402',
-            frontText: 'Lorem ipsum dolor sit amet consectetur adipisi.',
-            backText1: 'Consectetur adipisicing elit. Possimus, praesentium?',
-            backText2: 'Provident consectetur natus voluptatem quis tenetur sed beatae eius sint.'
-          },
-          {
-            image: '//source.unsplash.com/300x403',
-            frontText: 'Lorem ipsum dolor sit amet consectetur adipisi.',
-            backText1: 'Consectetur adipisicing elit. Possimus, praesentium?',
-            backText2: 'Provident consectetur natus voluptatem quis tenetur sed beatae eius sint.'
-          },
-          {
-            image: '//source.unsplash.com/300x404',
-            frontText: 'Lorem ipsum dolor sit amet consectetur adipisi.',
-            backText1: 'Consectetur adipisicing elit. Possimus, praesentium?',
-            backText2: 'Provident consectetur natus voluptatem quis tenetur sed beatae eius sint.'
-          },
-          {
-            image: '//source.unsplash.com/300x405',
-            frontText: 'Lorem ipsum dolor sit amet consectetur adipisi.',
-            backText1: 'Consectetur adipisicing elit. Possimus, praesentium?',
-            backText2: 'Provident consectetur natus voluptatem quis tenetur sed beatae eius sint.'
-          },
-          {
-            image: '//source.unsplash.com/300x406',
-            frontText: 'Lorem ipsum dolor sit amet consectetur adipisi.',
-            backText1: 'Consectetur adipisicing elit. Possimus, praesentium?',
-            backText2: 'Provident consectetur natus voluptatem quis tenetur sed beatae eius sint.'
-          }
-        ]
-      };
+    totalPages() {
+      return Math.ceil(this.totalAssets / this.assetsPerPage);
+    },
+    paginatedAssets() {
+      const startIndex = (this.currentPage - 1) * this.assetsPerPage;
+      return this.cards.slice(startIndex, startIndex + this.assetsPerPage);
     }
-  };
-  </script>
-  
- 
-  
-  <style scoped>
-.team{
+  },
+  methods: {
+    paginate(page) {
+      this.currentPage = page;
+    },
+    handleLearnMoreClick() {
+      this.$router.push({ path: '/paginationcomponent' });
+    }
+  }
+};
+</script>
+
+
+
+<style scoped>
+.team {
   background-color: #030F16;
   color: #fff;
- 
 }
 .content {
   display: flex;
@@ -99,7 +135,6 @@ import CustomButton from '@/components/CostumButton.vue';
   flex-wrap: wrap;
   max-width: 1000px;
 }
-
 .heading {
   width: 100%;
   margin-left: 1rem;
@@ -112,7 +147,6 @@ import CustomButton from '@/components/CostumButton.vue';
   margin-bottom: 1rem;
   position: relative;
 }
-
 .heading:after {
   display: block;
   content: "";
@@ -122,38 +156,32 @@ import CustomButton from '@/components/CostumButton.vue';
   background: linear-gradient(135deg, #1a9be6, #1a57e6);
   bottom: 0;
 }
-
 .description {
   width: 100%;
   margin-top: 0;
   margin-left: 1rem;
   margin-bottom: 3rem;
 }
-
 .card {
   color: inherit;
   cursor: pointer;
-  width: calc(33% - 2rem);
-  min-width: calc(33% - 2rem);
-  height: 300px;
-  min-height: 400px;
+  width: calc(33.33% - 2rem); 
+  min-width: calc(33.33% - 2rem); 
+  height: 300px; 
   perspective: 1000px;
   margin: 1rem;
   position: relative;
 }
-
 @media screen and (max-width: 800px) {
   .card {
     width: calc(50% - 2rem); 
   }
 }
-
 @media screen and (max-width: 500px) {
   .card {
     width: 100%;
   }
 }
-
 .front,
 .back {
   display: flex;
@@ -169,7 +197,6 @@ import CustomButton from '@/components/CostumButton.vue';
   transform-style: preserve-3d;
   transition: ease-in-out 600ms;
 }
-
 .front {
   background-color: #061E2C; 
   padding: 2rem;
@@ -204,13 +231,38 @@ import CustomButton from '@/components/CostumButton.vue';
 .card:nth-child(even):hover .front {
   transform: rotateY(-180deg);
 }
-
 .back {
   background: #fff;
   transform: rotateY(-180deg);
   padding: 0 2em;
 }
-
+.back-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+.back-text {
+  font-size: 0.875rem;
+  font-weight: 400;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #fff; 
+}
+.buttons {
+  display: flex;
+  gap: 0.5rem;
+}
+.profile {
+  background: linear-gradient(135deg, #1a9be6, #1a57e6);
+}
+.back {
+  background: #061E2C; 
+  transform: rotateY(-180deg);
+  padding: 0 2em;
+}
 .card:hover .back {
   transform: rotateY(0deg);
 }
@@ -224,10 +276,7 @@ import CustomButton from '@/components/CostumButton.vue';
   box-shadow: 0 0 10px 10px rgba(230, 26, 60, 0.25);
   background-color: rgba(230, 26, 60, 0.25);
 }
-
 .card:nth-child(even):hover .back {
   transform: rotateY(0deg);
 }
-
-
 </style>
