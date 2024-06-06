@@ -26,6 +26,7 @@ export default {
       this.showLoader = false;
     }, 800); 
   }
+}
   </script>
   
   <style scoped>
