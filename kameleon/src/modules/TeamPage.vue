@@ -1,10 +1,8 @@
 
 <template>
-  <div class="team">
     <CenteredContainer>
       <div class="content">
     <h1 class="heading">Card Flip</h1>
-    <CustomButton @click="handleDownloadClick">Download</CustomButton>
     <p class="description">Hover over a card to flip it.</p>
     <a v-for="(card, index) in cards" :key="index" class="card" href="#!">
       <div :class="['front', { 'even': index % 2 === 0 }]" :style="{ backgroundImage: `url(${card.image})` }">
@@ -21,16 +19,12 @@
   </div>
       
     </CenteredContainer>
-  </div>
- 
   </template>
   <script>
-import CustomButton from '@/components/CostumButton.vue';
   import CenteredContainer from '@/components/CenteredContainer.vue';
   export default {
     components: {
       CenteredContainer,
-      CustomButton
     },
     data() {
       return {
@@ -80,11 +74,7 @@ import CustomButton from '@/components/CostumButton.vue';
  
   
   <style scoped>
-.team{
-  background-color: #030F16;
-  color: #fff;
- 
-}
+
 .content {
   display: flex;
   margin: 0 auto;
@@ -128,7 +118,7 @@ import CustomButton from '@/components/CostumButton.vue';
   cursor: pointer;
   width: calc(33% - 2rem);
   min-width: calc(33% - 2rem);
-  height: 300px;
+  height: 400px;
   min-height: 400px;
   perspective: 1000px;
   margin: 1rem;
@@ -196,7 +186,13 @@ import CustomButton from '@/components/CostumButton.vue';
   transform: rotateY(-180deg);
   padding: 0 2em;
 }
-
+.back .button {
+  background: linear-gradient(135deg, #1a9be6, #1a57e6);
+}
+.back .button:before {
+  box-shadow: 0 0 10px 10px rgba(26, 87, 230, 0.25);
+  background-color: rgba(26, 87, 230, 0.25);
+}
 .card:hover .back {
   transform: rotateY(0deg);
 }
@@ -214,5 +210,46 @@ import CustomButton from '@/components/CostumButton.vue';
   transform: rotateY(0deg);
 }
 
-
+.button {
+  transform: translateZ(40px);
+  cursor: pointer;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  font-weight: bold;
+  color: #fff;
+  padding: 0.5em 1em;
+  border-radius: 100px;
+  font: inherit;
+  border: none;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: 300ms ease;
+}
+.button:before {
+  transition: 300ms ease;
+  position: absolute;
+  display: block;
+  content: "";
+  transform: translateZ(-40px);
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  height: calc(100% - 20px);
+  width: calc(100% - 20px);
+  border-radius: 100px;
+  left: 10px;
+  top: 16px;
+}
+.button:hover {
+  transform: translateZ(55px);
+}
+.button:hover:before {
+  transform: translateZ(-55px);
+}
+.button:active {
+  transform: translateZ(20px);
+}
+.button:active:before {
+  transform: translateZ(-20px);
+  top: 12px;
+}
 </style>
