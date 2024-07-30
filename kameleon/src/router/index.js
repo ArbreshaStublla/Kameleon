@@ -4,6 +4,7 @@ import SignUp from "../components/SignUp.vue";
 import LoginPage from "../components/LoginPage.vue";
 import TeamPage from "../modules/TeamPage.vue";
 import Bashkepunimet from "../modules/Bashkepunimet/CollaborationsPage.vue"
+import Pergjegjesite from "../modules/Përgjegjësitë/TaskSection.vue"
 import ErrorPage from "../modules/Error/ErrorPage.vue"; 
 
 const routes = [
@@ -21,6 +22,11 @@ const routes = [
         path: 'bashkepunimet',
         name: 'Bashkepunimet',
         component: Bashkepunimet
+      },
+      {
+        path: 'pergjegjesite',
+        name: 'pergjegjesite',
+        component: Pergjegjesite
       },
     ]
   },

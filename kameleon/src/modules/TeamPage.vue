@@ -3,7 +3,7 @@
     <CenteredContainer>
       <div class="content">
         <h1 class="heading">Ekipi</h1>
-        <a v-for="(card, index) in cards" :key="index" class="card" href="#!">
+        <a v-for="(card, index) in paginatedAssets" :key="index" class="card" href="#!">
           <div :class="['front', { 'even': index % 2 === 0 }]">
             <img :src="card.image" alt="Card Image" class="card-image"/>
             <p class="name">{{ card.name }}</p>
@@ -14,18 +14,22 @@
               <p class="back-text">{{ card.backText }}</p>
               <div class="buttons">
                 <CostumButton @click="handleContactClick(card)">
-      <span class="mdi mdi-email"></span> 
-      {{ card.contactButtonText }}
-    </CostumButton>
-    <CostumButton @click="handleProfileClick(card)">
-      <span class="mdi mdi-account"></span> 
-      {{ card.profileButtonText }}
-    </CostumButton>
-  </div>
-</div>
+                  <span class="mdi mdi-email"></span> 
+                  {{ card.contactButtonText }}
+                </CostumButton>
+                <CostumButton @click="handleProfileClick(card)">
+                  <span class="mdi mdi-account"></span> 
+                  {{ card.profileButtonText }}
+                </CostumButton>
+              </div>
+            </div>
           </div>
         </a>
-        <PaginationComponent :totalPages="totalPages" :currentPage="currentPage" @pageChange="handlePageChange" />
+        <PaginationComponent 
+          :totalPages="totalPages" 
+          :currentPage="currentPage" 
+          @page-change="handlePageChange" 
+        />
       </div>
     </CenteredContainer>
   </div>
@@ -35,6 +39,7 @@
 import CostumButton from '@/components/CostumButton.vue';
 import CenteredContainer from '@/components/CenteredContainer.vue';
 import PaginationComponent from '@/components/PaginationComponent.vue';
+
 export default {
   components: {
     CenteredContainer,
@@ -44,6 +49,7 @@ export default {
   data() {
     return {
       cards: [
+        // Your card data goes here
         {
           image: require('../assets/person1.jpg'),
           name: 'Leart Bytyqi',
@@ -91,10 +97,34 @@ export default {
           backText: 'Krijon dhe monitoron lidhjet e brendshme dhe të jashtme për të rritur autoritetin e faqes në internet.',
           contactButtonText: 'Contact',
           profileButtonText: 'Profile'
-        }
+        },
+        {
+          image: require('../assets/person6.jpg'),
+          name: 'Albatros Kryeziu',
+          job: 'SEO Specialist',
+          backText: 'Krijon dhe monitoron lidhjet e brendshme dhe të jashtme për të rritur autoritetin e faqes në internet.',
+          contactButtonText: 'Contact',
+          profileButtonText: 'Profile'
+        },
+        {
+          image: require('../assets/person5.jpg'),
+          name: 'Diana Jaha',
+          job: 'Market Research Analyst',
+          backText: 'Monitoron veprimtarinë e konkurrencës dhe bën krahasime për të vlerësuar pozicionimin e markës në treg.',
+          contactButtonText: 'Contact',
+          profileButtonText: 'Profile'
+        },
+        {
+          image: require('../assets/person2.jpg'),
+          name: 'Aleksandra Sopi',
+          job: 'Digital Marketing Specialist',
+          backText: 'Zhvillon dhe implementon strategjitë e marketingut në rrjetet sociale, përfshirë platformat si Facebook, Instagram, Twitter, dhe LinkedIn.',
+          contactButtonText: 'Contact',
+          profileButtonText: 'Profile'
+        },
       ],
       currentPage: 1,
-      assetsPerPage: 3 
+      assetsPerPage: 6
     };
   },
   computed: {
@@ -110,21 +140,23 @@ export default {
     }
   },
   methods: {
-    paginate(page) {
+    handlePageChange(page) {
       this.currentPage = page;
     },
-    handleLearnMoreClick() {
-      this.$router.push({ path: '/paginationcomponent' });
+    handleContactClick(card) {
+      console.log(card)
+    },
+    handleProfileClick(card) {
+     console.log(card)
     }
   }
 };
 </script>
 
-
-
 <style scoped>
 .team {
   background-color: #030F16;
+  height: auto;
   color: #fff;
 }
 .content {

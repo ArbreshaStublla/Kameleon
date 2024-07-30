@@ -41,7 +41,7 @@ export default {
         { id:1,title: "B", value: "b", prependIcon: "mdi-home", classStyle: 'text-left', to: "/" },
         { id:2,title: "Bashkepunimet", value: "Bahkepunimet", prependIcon: "mdi-account-multiple", classStyle: 'text-left', to: "/bashkepunimet" },
         { id:3,title: "Ekipi", value: "Ekipi", prependIcon: "mdi-account", classStyle: 'text-left', to: '/team' },
-        { id:4,title: "L", value: "l", prependIcon: "mdi-key", classStyle: 'text-left', to: "/" },
+        { id:4,title: "Pergjegjesite", value: "pergjegjesite", prependIcon: "mdi-key", classStyle: 'text-left', to: "/pergjegjesite" },
         { id:5,title: "P", value: "p", prependIcon: "mdi-desktop-tower", classStyle: 'text-left', to: "/" },
         { id:6,title: "U", value: "u", prependIcon: "mdi-account-edit", classStyle: 'text-left', to: '/' },
 
