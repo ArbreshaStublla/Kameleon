@@ -1,56 +1,61 @@
 <template>
-    <div class="collab">
-      <CenteredContainer>
-        <v-card flat>
-          <v-card-title class="d-flex align-center pe-2">
-            Bashkepunimet
-            <v-spacer></v-spacer>
-            <v-text-field
-              v-model="search"
-              density="compact"
-              label="Search"
-              prepend-inner-icon="mdi-magnify"
-              variant="solo-filled"
-              flat
-              hide-details
-              single-line
-            ></v-text-field>
-          </v-card-title>
-  
-          <v-divider></v-divider>
-          <v-data-table v-model:search="search" :items="companies">
-            <template v-slot:[`item.image`]="{ item }">
-              <v-card class="my-2" elevation="2" rounded>
-                <v-img :src="`assets/companies/${item.image}`" height="64" cover></v-img>
-              </v-card>
-            </template>
-  
-            <template v-slot:[`item.rating`]="{ item }">
-              <v-rating
-                :model-value="item.rating"
-                color="orange-darken-2"
-                density="compact"
-                size="small"
-                readonly
-              ></v-rating>
-            </template>
-  
-            <template v-slot:[`item.active`]="{ item }">
-              <div class="text-end">
-                <v-chip
-                  :color="item.active ? 'green' : 'red'"
-                  :text="item.active ? 'Active' : 'Inactive'"
-                  class="text-uppercase"
-                  size="small"
-                  label
-                ></v-chip>
-              </div>
-            </template>
-          </v-data-table>
-        </v-card>
-      </CenteredContainer>
-    </div>
-  </template>
+  <div class="collab">
+    <CenteredContainer>
+      <div>
+        <h2 class="text-center mb-4">BASHKEPUNIMET</h2>
+      </div>
+      <v-card flat class="custom-card">
+        <v-card-title class="d-flex align-center pe-2">
+          <v-spacer></v-spacer>
+          <v-text-field
+            v-model="search"
+            density="compact"
+            label="Search"
+            prepend-inner-icon="mdi-magnify"
+            variant="solo-filled"
+            flat
+            hide-details
+            single-line
+          ></v-text-field>
+        </v-card-title>
+        <v-divider></v-divider>
+        <v-data-table v-model:search="search" :items="companies" class="custom-table">
+          <template v-slot:item="{ item }">
+            <tr>
+              <td @mouseenter="hoveredItem = item" @mouseleave="hoveredItem = null" :class="{ 'hovered-row': item === hoveredItem }">
+                {{ item.name }}
+              </td>
+              <td @mouseenter="hoveredItem = item" @mouseleave="hoveredItem = null" :class="{ 'hovered-row': item === hoveredItem }">
+                <v-card class="my-2" elevation="2" rounded>
+                  <v-img :src="`${item.image}`" height="64" cover></v-img>
+                </v-card>
+              </td>
+              <td @mouseenter="hoveredItem = item" @mouseleave="hoveredItem = null" :class="{ 'hovered-row': item === hoveredItem }">
+                {{ item.director }}
+              </td>
+              <td @mouseenter="hoveredItem = item" @mouseleave="hoveredItem = null" :class="{ 'hovered-row': item === hoveredItem }">
+                {{ item.email }}
+              </td>
+              <td @mouseenter="hoveredItem = item" @mouseleave="hoveredItem = null" :class="{ 'hovered-row': item === hoveredItem }">
+                {{ item.phone }}
+              </td>
+              <td @mouseenter="hoveredItem = item" @mouseleave="hoveredItem = null" :class="{ 'hovered-row': item === hoveredItem }">
+                {{ item.collaborationDate }}
+              </td>
+              <td @mouseenter="hoveredItem = item" @mouseleave="hoveredItem = null" :class="{ 'hovered-row': item === hoveredItem }">
+                {{ item.rating }}
+              </td>
+              <td @mouseenter="hoveredItem = item" @mouseleave="hoveredItem = null" :class="{ 'hovered-row': item === hoveredItem }">
+                <v-chip :color="item.active ? 'green' : 'red'" :text="item.active ? 'Active' : 'Inactive'" class="text-uppercase" size="small" label></v-chip>
+              </td>
+            </tr>
+          </template>
+        </v-data-table>
+      </v-card>
+    </CenteredContainer>
+  </div>
+</template>
+
 <script>
 import CenteredContainer from '@/components/CenteredContainer.vue';
 
@@ -61,10 +66,11 @@ export default {
   data() {
     return {
       search: '',
+      hoveredItem: null,
       companies: [
         {
           name: 'CreativeMinds',
-          image: 'creativeminds.png',
+          image: require('../../assets/logo1.jpg'),
           director: 'John Smith',
           email: 'john.smith@creativeminds.com',
           phone: '+1234567890',
@@ -74,7 +80,7 @@ export default {
         },
         {
           name: 'DigitalWorks',
-          image: 'digitalworks.png',
+          image: require('../../assets/logo2.jpg'),
           director: 'Alice Johnson',
           email: 'alice.johnson@digitalworks.com',
           phone: '+1987654321',
@@ -84,7 +90,7 @@ export default {
         },
         {
           name: 'MarketingGenius',
-          image: 'marketinggenius.png',
+          image: require('../../assets/logo3.png'),
           director: 'Robert Brown',
           email: 'robert.brown@marketinggenius.com',
           phone: '+1555123456',
@@ -94,7 +100,7 @@ export default {
         },
         {
           name: 'TechSavvy',
-          image: 'techsavvy.png',
+          image: require('../../assets/logo4.png'),
           director: 'Emily Taylor',
           email: 'emily.taylor@techsavvy.com',
           phone: '+1444333222',
@@ -104,7 +110,7 @@ export default {
         },
         {
           name: 'InnovateDigital',
-          image: 'innovatedigital.png',
+          image: require('../../assets/logo5.jpg'),
           director: 'Michael Wilson',
           email: 'michael.wilson@innovatedigital.com',
           phone: '+1777888999',
@@ -114,7 +120,7 @@ export default {
         },
         {
           name: 'DigitalDreams',
-          image: 'digitaldreams.png',
+          image: require('../../assets/logo2.jpg'),
           director: 'Sarah Martinez',
           email: 'sarah.martinez@digitaldreams.com',
           phone: '+1666999888',
@@ -124,7 +130,7 @@ export default {
         },
         {
           name: 'PixelPerfect',
-          image: 'pixelperfect.png',
+          image: require('../../assets/logo1.jpg'),
           director: 'David Clark',
           email: 'david.clark@pixelperfect.com',
           phone: '+1888999000',
@@ -134,7 +140,7 @@ export default {
         },
         {
           name: 'WebWizards',
-          image: 'webwizards.png',
+          image: require('../../assets/logo4.png'),
           director: 'Jessica Brown',
           email: 'jessica.brown@webwizards.com',
           phone: '+1222333444',
@@ -144,7 +150,7 @@ export default {
         },
         {
           name: 'BrandBuilders',
-          image: 'brandbuilders.png',
+          image: require('../../assets/logo5.jpg'),
           director: 'Daniel Johnson',
           email: 'daniel.johnson@brandbuilders.com',
           phone: '+1333444555',
@@ -154,7 +160,7 @@ export default {
         },
         {
           name: 'MarketMasters',
-          image: 'marketmasters.png',
+          image: require('../../assets/logo3.png'),
           director: 'Jennifer Miller',
           email: 'jennifer.miller@marketmasters.com',
           phone: '+1111222333',
@@ -170,6 +176,25 @@ export default {
 <style scoped>
 .collab {
   background-color: #030f16;
+}
+
+.custom-card {
+  background-color: #061E2C;
+  color: #fff;
+}
+
+.custom-table {
+  background-color: #061E2C;
+  color: #fff;
+}
+
+h2 {
+  color: #fff;
+}
+
+.hovered-row {
+  background-color: blue; 
+  cursor: pointer;
 }
 </style>
   
